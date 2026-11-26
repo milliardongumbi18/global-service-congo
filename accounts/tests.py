@@ -3,7 +3,9 @@ from django.db import IntegrityError
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import User
+from decimal import Decimal
+
+from .models import CompanyProfile, FreelanceProfile, Skill, User
 
 
 class UserModelTests(TestCase):
@@ -72,3 +74,44 @@ class UserAdminTests(TestCase):
         self.client.force_login(user)
         response = self.client.get(reverse("admin:accounts_user_changelist"))
         self.assertEqual(response.status_code, 302)  # redirigé vers la connexion admin
+
+
+class ProfilsTests(TestCase):
+    def creer(self, email, account_type):
+        return User.objects.create_user(email=email, password="MotDePasse-Solide-2026", account_type=account_type)
+
+    def test_profil_freelance_cree_automatiquement(self):
+        user = self.creer("f@x.cd", User.AccountType.FREELANCE)
+        self.assertIsInstance(user.profile, FreelanceProfile)
+
+    def test_profil_entreprise_cree_automatiquement(self):
+        user = self.creer("e@x.cd", User.AccountType.ENTREPRISE)
+        self.assertIsInstance(user.profile, CompanyProfile)
+
+    def test_aucun_profil_pour_un_client(self):
+        user = self.creer("c@x.cd", User.AccountType.CLIENT)
+        self.assertIsNone(user.profile)
+        self.assertFalse(FreelanceProfile.objects.filter(user=user).exists())
+
+    def test_profil_incompatible_avec_le_type_refuse(self):
+        client = self.creer("c2@x.cd", User.AccountType.CLIENT)
+        with self.assertRaises(ValidationError):
+            FreelanceProfile(user=client).full_clean()
+
+    def test_tarif_negatif_refuse(self):
+        profil = self.creer("f2@x.cd", User.AccountType.FREELANCE).profile
+        profil.hourly_rate = Decimal("-5")
+        with self.assertRaises(ValidationError):
+            profil.full_clean()
+
+
+class CompetencesTests(TestCase):
+    def test_nom_normalise_et_slug_calcules(self):
+        skill = Skill.objects.create(name="  Électricité   industrielle ")
+        self.assertEqual(skill.name, "Électricité industrielle")
+        self.assertEqual(skill.search_name, "electricite industrielle")
+        self.assertEqual(skill.slug, "electricite-industrielle")
+
+    def test_competences_de_depart_trouvables_sans_accent(self):
+        # Ce que fera l'autocomplétion quand on tape « elec »
+        self.assertTrue(Skill.objects.filter(search_name__startswith="elec").exists())
