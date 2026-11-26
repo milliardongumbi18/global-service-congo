@@ -1,5 +1,9 @@
-from django.test import TestCase
+from decimal import Decimal
+
+from django.test import TestCase, override_settings
 from django.urls import reverse
+
+from .views import montant_net_prestataire
 
 
 class HomePageTests(TestCase):
@@ -17,5 +21,28 @@ class HomePageTests(TestCase):
         self.assertContains(self.response, "data-theme-toggle")
 
     def test_metiers_affiches_et_echappes(self):
-        # Le "É" accentué arrive tel quel : l'auto-échappement de Django protège sans abîmer le texte
         self.assertContains(self.response, "Électricité")
+
+    def test_sections_presentes(self):
+        # Les liens du menu (#comment, #missions, #prestataires) doivent mener quelque part
+        for ancre in ('id="comment"', 'id="missions"', 'id="prestataires"'):
+            self.assertContains(self.response, ancre)
+
+    def test_missions_exemples_affichees(self):
+        self.assertContains(self.response, "Traduction français-anglais")
+
+    @override_settings(PLATFORM_FEE_PERCENT=10)
+    def test_montant_net_affiche_dans_le_bloc_sequestre(self):
+        response = self.client.get(reverse("core:home"))
+        self.assertContains(response, "315 USD")
+
+
+class CommissionTests(TestCase):
+    @override_settings(PLATFORM_FEE_PERCENT=10)
+    def test_commission_de_10_pourcent(self):
+        self.assertEqual(montant_net_prestataire(Decimal("350")), Decimal("315.00"))
+
+    @override_settings(PLATFORM_FEE_PERCENT=10)
+    def test_arrondi_au_centime(self):
+        # 10 % de 99,99 = 9,999 → arrondi à 10,00 → net 89,99
+        self.assertEqual(montant_net_prestataire(Decimal("99.99")), Decimal("89.99"))

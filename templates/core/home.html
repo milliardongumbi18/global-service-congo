@@ -96,4 +96,162 @@
     </ul>
   </div>
 </section>
+{# ----------------------------------------------------- Comment ça marche #}
+<section id="comment" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 class="section-title">Quatre étapes, zéro mauvaise surprise</h2>
+      <p class="section-lead">Le client paie avant le début du travail, le prestataire est sûr d'être payé, et personne ne touche l'argent avant la validation.</p>
+    </div>
+    <ol class="route reveal">
+      <li class="route-step" style="--c: var(--gsc-y)">
+        <span class="route-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="m13.5 6.5 4 4"/></svg></span>
+        <h3>Publiez</h3>
+        <p>Décrivez la mission, le budget, le délai et le lieu.</p>
+      </li>
+      <li class="route-step" style="--c: var(--gsc-b)">
+        <span class="route-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="m16 11 2 2 4-4"/></svg></span>
+        <h3>Choisissez</h3>
+        <p>Comparez les propositions, échangez, acceptez la meilleure.</p>
+      </li>
+      <li class="route-step" style="--c: var(--gsc-g)">
+        <span class="route-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+        <h3>Payez en séquestre</h3>
+        <p>L'argent est bloqué par GSC pendant que le travail avance.</p>
+      </li>
+      <li class="route-step" style="--c: var(--gsc-r)">
+        <span class="route-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></span>
+        <h3>Validez et notez</h3>
+        <p>Le prestataire est payé, et chacun laisse un avis.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+{# ----------------------------------------------------- Missions récentes #}
+<section id="missions" class="section pt-0">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 class="section-title">Missions récentes</h2>
+      <a href="#" class="btn btn-ghost">Voir toutes les missions</a>
+    </div>
+    <div class="mission-grid">
+      {% for mission in missions %}
+        <article class="glass spot mission-card reveal">
+          <span class="tag tag-{{ mission.couleur }} self-start">{{ mission.categorie }}</span>
+          <h3 class="text-[17px] font-bold leading-snug">{{ mission.titre }}</h3>
+          <div class="mission-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>{{ mission.lieu }}</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>{{ mission.delai }}</span>
+          </div>
+          <div class="mission-foot">
+            <span class="font-display text-[19px] font-extrabold whitespace-nowrap">{{ mission.budget }}</span>
+            <span class="text-[13px] text-muted">{{ mission.candidatures }} candidature{{ mission.candidatures|pluralize }}</span>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+    <p class="mt-4 text-[13px] text-muted">Exemples de missions, à titre d'illustration.</p>
+  </div>
+</section>
+
+{# ----------------------------------------------------- Types de compte #}
+<section id="prestataires" class="section pt-0">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 class="section-title">Un compte pour chaque besoin</h2>
+      <p class="section-lead">Particulier, freelance ou entreprise : choisissez votre profil à l'inscription.</p>
+    </div>
+    <div class="type-grid">
+      <article class="glass spot type-card reveal" style="--c: var(--gsc-y)">
+        <span class="type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+        <h3 class="text-xl font-bold">Particulier</h3>
+        <p class="text-muted">Vous avez un travail à faire faire, petit ou grand.</p>
+        <ul class="type-list">
+          <li>Publiez vos missions gratuitement</li>
+          <li>Comparez les propositions reçues</li>
+          <li>Payez seulement après validation</li>
+        </ul>
+        <a href="#" class="btn btn-ghost">Créer un compte client</a>
+      </article>
+
+      <article class="glass spot type-card is-featured reveal" style="--c: var(--gsc-b)">
+        <span class="type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
+        <h3 class="text-xl font-bold">Freelance</h3>
+        <p class="text-muted">Vous proposez vos compétences et voulez être payé à coup sûr.</p>
+        <ul class="type-list">
+          <li>Profil, portfolio et tarifs</li>
+          <li>Candidatures en quelques minutes</li>
+          <li>Commission de {{ commission_pct }} % affichée à l'avance</li>
+        </ul>
+        <a href="#" class="btn btn-primary btn-glow">Créer un compte freelance</a>
+      </article>
+
+      <article class="glass spot type-card reveal" style="--c: var(--gsc-g)">
+        <span class="type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 9h1M14 9h1M9 13h1M14 13h1M10 21v-4h4v4"/></svg></span>
+        <h3 class="text-xl font-bold">Entreprise</h3>
+        <p class="text-muted">Vous recrutez des talents, ou vous proposez vos services.</p>
+        <ul class="type-list">
+          <li>Page de présentation de l'entreprise</li>
+          <li>Publiez des missions pour trouver du monde</li>
+          <li>Candidatez aussi aux missions des autres</li>
+        </ul>
+        <a href="#" class="btn btn-ghost">Créer un compte entreprise</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+{# ----------------------------------------------------- Séquestre #}
+<section class="section pt-0">
+  <div class="wrap">
+    <div class="glass escrow">
+      <div class="reveal">
+        <h2 class="section-title">Votre argent est bloqué, pas perdu.</h2>
+        <p class="mt-4 text-muted">Le séquestre protège les deux côtés : le client sait que rien n'est versé sans validation, le prestataire sait que l'argent existe avant de commencer.</p>
+        <ul class="points">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg><span>Paiement par Mobile Money : M-Pesa, Orange Money et Airtel Money (bientôt).</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/></svg><span>En cas de désaccord, l'équipe GSC examine le litige et tranche.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg><span>Les avis ne sont possibles qu'après une mission validée.</span></li>
+        </ul>
+      </div>
+      <ol class="flow reveal">
+        <li class="flow-step" style="--c: var(--gsc-y)">
+          <span class="flow-num">1</span>
+          <div><p class="font-semibold">Le client paie</p><p class="text-[13px] text-muted">{{ exemple_montant|floatformat:"0" }} USD envoyés à GSC</p></div>
+          <span class="tag tag-yellow">Reçu</span>
+        </li>
+        <li class="flow-step" style="--c: var(--gsc-b)">
+          <span class="flow-num">2</span>
+          <div><p class="font-semibold">Les fonds sont bloqués</p><p class="text-[13px] text-muted">Pendant toute la mission</p></div>
+          <span class="tag tag-blue">Bloqué</span>
+        </li>
+        <li class="flow-step" style="--c: var(--gsc-g)">
+          <span class="flow-num">3</span>
+          <div><p class="font-semibold">Le travail est validé</p><p class="text-[13px] text-muted">Par le client</p></div>
+          <span class="tag tag-green">Validé</span>
+        </li>
+        <li class="flow-step" style="--c: var(--gsc-r)">
+          <span class="flow-num">4</span>
+          <div><p class="font-semibold">Le prestataire est payé</p><p class="text-[13px] text-muted">{{ exemple_net|floatformat:"0" }} USD après commission de {{ commission_pct }} %</p></div>
+          <span class="tag tag-red">Versé</span>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+{# ----------------------------------------------------- Appel final #}
+<section class="section pt-0">
+  <div class="wrap">
+    <div class="glass cta reveal">
+      <h2 class="section-title">Prêt à lancer votre première mission ?</h2>
+      <p class="mx-auto mt-4 mb-8 max-w-[32em] text-muted">L'inscription prend une minute. Choisissez votre type de compte et commencez.</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="#" class="btn btn-primary btn-glow">Créer un compte</a>
+        <a href="#missions" class="btn btn-ghost">Parcourir les missions</a>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
