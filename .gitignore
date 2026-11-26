@@ -1,0 +1,19 @@
+# Environnement virtuel
+.venv/
+
+# Secrets : ne JAMAIS envoyer sur GitHub
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Base locale et fichiers générés
+db.sqlite3
+staticfiles/
+media/
+
+# Éditeur et système
+.vscode/
+Thumbs.db
+.DS_Store
