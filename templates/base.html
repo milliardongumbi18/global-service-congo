@@ -1,0 +1,35 @@
+{% load static %}<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Global Service Congo{% endblock %}</title>
+  <meta name="description" content="{% block description %}Trouvez des freelances et des entreprises de confiance en RDC. Paiement bloqué jusqu'à la validation du travail.{% endblock %}">
+  <meta name="theme-color" content="#050a18">
+
+  {# Thème appliqué avant l'affichage, pour éviter un flash #}
+  <script src="{% static 'js/theme-init.js' %}"></script>
+
+  <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=Plus+Jakarta+Sans:wght@700..800&display=swap">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <script src="{% static 'js/app.js' %}" defer></script>
+</head>
+<body class="min-h-dvh bg-bg font-sans text-ink antialiased">
+  <a href="#contenu" class="skip-link">Aller au contenu</a>
+
+  {% include "partials/_logo_defs.html" %}
+  <div class="bg-scene" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  {% include "partials/_header.html" %}
+
+  <main id="contenu">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "partials/_footer.html" %}
+</body>
+</html>

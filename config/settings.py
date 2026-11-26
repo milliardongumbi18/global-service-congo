@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # Nos applications seront ajoutées ici à partir de l'étape 1b.
+    # Nos applications
+    "core",
 ]
 
 MIDDLEWARE = [
@@ -123,6 +124,9 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # Commission prélevée sur le montant versé au prestataire (en %).
 PLATFORM_FEE_PERCENT = env.int("PLATFORM_FEE_PERCENT", default=10)
+
+# Adresse de l'administration : on évite « admin/ », que tous les robots testent.
+ADMIN_URL = env("ADMIN_URL", default="admin/")
 
 
 # --- Sécurité en production -------------------------------------------------
