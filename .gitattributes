@@ -1,0 +1,11 @@
+# Fins de ligne normalisées en LF dans Git (identiques sur Windows et sur Render)
+* text=auto eol=lf
+
+# Fichiers binaires : ne jamais toucher
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.woff2 binary
+*.exe binary
