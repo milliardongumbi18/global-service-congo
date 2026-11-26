@@ -2,7 +2,23 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 
 from .forms import GSCAdminUserCreationForm, GSCUserChangeForm
-from .models import User
+from .models import CompanyProfile, FreelanceProfile, Skill, User
+
+
+class FreelanceProfileInline(admin.StackedInline):
+    model = FreelanceProfile
+    can_delete = False
+    max_num = 1
+    autocomplete_fields = ("skills",)
+    readonly_fields = ("created_at", "updated_at")
+
+
+class CompanyProfileInline(admin.StackedInline):
+    model = CompanyProfile
+    can_delete = False
+    max_num = 1
+    autocomplete_fields = ("skills",)
+    readonly_fields = ("created_at", "updated_at")
 
 
 @admin.register(User)
@@ -35,5 +51,23 @@ class UserAdmin(DjangoUserAdmin):
     def get_readonly_fields(self, request, obj=None):
         readonly = ["last_login", "date_joined", "accepted_terms_at"]
         if obj is not None:
-            readonly.append("account_type")  # non modifiable après création, même par l'admin
+            readonly.append("account_type")
         return readonly
+
+    def get_inlines(self, request, obj):
+        """Affiche le profil adapté au type de compte, sous la fiche utilisateur."""
+        if obj is None:
+            return []
+        if obj.account_type == User.AccountType.FREELANCE:
+            return [FreelanceProfileInline]
+        if obj.account_type == User.AccountType.ENTREPRISE:
+            return [CompanyProfileInline]
+        return []
+
+
+@admin.register(Skill)
+class SkillAdmin(admin.ModelAdmin):
+    list_display = ("name", "slug", "is_active")
+    list_editable = ("is_active",)
+    list_filter = ("is_active",)
+    search_fields = ("name", "search_name")

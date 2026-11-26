@@ -4,7 +4,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from .views import montant_net_prestataire
-
+from .text import normaliser
 
 class HomePageTests(TestCase):
     def setUp(self):
@@ -46,3 +46,10 @@ class CommissionTests(TestCase):
     def test_arrondi_au_centime(self):
         # 10 % de 99,99 = 9,999 → arrondi à 10,00 → net 89,99
         self.assertEqual(montant_net_prestataire(Decimal("99.99")), Decimal("89.99"))
+
+
+class NormalisationTests(TestCase):
+    def test_minuscules_sans_accents_espaces_simplifies(self):
+        self.assertEqual(normaliser("  Électricité   Générale "), "electricite generale")
+        self.assertEqual(normaliser("Réparation d'ordinateurs"), "reparation d'ordinateurs")
+        self.assertEqual(normaliser(""), "")
