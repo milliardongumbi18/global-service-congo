@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Global Service Congo · Freelances et entreprises de confiance en RDC{% endblock %}
+
+{% block content %}
+<section class="wrap hero-grid pb-12 pt-8 md:pb-20 md:pt-16">
+
+  <div class="hero-text">
+    <p class="pill rise"><span class="pill-dot"></span>Paiement protégé par séquestre</p>
+    <h1 class="rise rise-2 mt-6 text-[clamp(2.25rem,5.4vw,3.75rem)] font-extrabold">
+      Le travail bien fait, <span class="text-gradient">payé en toute confiance.</span>
+    </h1>
+    <p class="rise rise-3 mt-5 max-w-[34em] text-lg text-muted">
+      Publiez une mission, comparez les propositions des freelances et des entreprises de votre ville,
+      et ne libérez le paiement qu'une fois le travail validé.
+    </p>
+  </div>
+
+  <div class="hero-search rise rise-4">
+    <form class="glass search-box" action="{% url 'core:home' %}" method="get" role="search">
+      <label class="search-field">
+        <span class="sr-only">Que cherchez-vous ?</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" name="q" maxlength="80" autocomplete="off" placeholder="Site web, électricien, traduction…">
+      </label>
+      <button class="btn btn-primary" type="submit">Rechercher</button>
+    </form>
+    <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
+      <li class="flex items-center gap-2"><svg class="size-4 text-brand-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>Paiement bloqué jusqu'à validation</li>
+      <li class="flex items-center gap-2"><svg class="size-4 text-brand-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>Avis après chaque mission</li>
+      <li class="flex items-center gap-2"><svg class="size-4 text-brand-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>USD ou CDF</li>
+    </ul>
+  </div>
+
+  <div class="hero-visual-area rise rise-5">
+    <div class="hero-visual" data-tilt aria-hidden="true">
+      <div class="halo"></div>
+
+      {# Orbite pointillée avec trois points aux couleurs du logo #}
+      <svg class="orbit depth-1" viewBox="0 0 100 100">
+        <g class="orbit-spin">
+          <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width=".35" stroke-dasharray="1 2.4"/>
+          <circle class="fill-y" cx="50" cy="2" r="1.3"/>
+          <circle class="fill-g" cx="91.6" cy="74" r="1.1"/>
+          <circle class="fill-r" cx="8.4" cy="74" r="1.1"/>
+        </g>
+      </svg>
+
+      {# Logo en grand, l'anneau tourne lentement #}
+      <svg class="ring depth-1" viewBox="0 0 100 100">
+        <g class="ring-spin"><use href="#gsc-ring-arcs"/></g>
+        <use href="#gsc-ring-core"/>
+      </svg>
+
+      <div class="glass spot hc hc-apply depth-2">
+        <div class="flex items-center justify-between gap-2">
+          <span class="text-[13px] text-muted">Nouvelle candidature</span>
+          <span class="tag tag-blue">Freelance</span>
+        </div>
+        <div class="mt-3 flex items-center gap-3">
+          <span class="avatar">GM</span>
+          <div>
+            <p class="text-[15px] font-semibold">Grâce M.</p>
+            <p class="text-[13px] text-muted">320 USD · 7 jours</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass hc hc-rating depth-3 flex items-center gap-2 text-sm font-semibold">
+        <span class="text-gold">★</span> 4,9 sur 28 avis
+      </div>
+
+      <div class="glass spot hc hc-mission depth-3">
+        <div class="flex items-center justify-between gap-2">
+          <span class="tag tag-green">En cours</span>
+          <span class="font-display text-[22px] font-extrabold whitespace-nowrap">350 USD</span>
+        </div>
+        <p class="mt-3 font-display text-base font-bold">Site vitrine pour un restaurant</p>
+        <p class="text-[13px] text-muted">Gombe · livraison sous 3 semaines</p>
+        <div class="steps my-3"><i class="on"></i><i class="now"></i><i></i><i></i></div>
+        <p class="flex items-center gap-2 text-[13px] font-semibold text-brand-green">
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          Fonds bloqués jusqu'à validation
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# Bande défilante des métiers (liste doublée pour une boucle sans saut) #}
+<section class="border-y border-line py-6" aria-label="Exemples de métiers proposés">
+  <div class="marquee">
+    <ul class="marquee-track">
+      {% for metier in metiers %}<li class="chip">{{ metier }}</li>{% endfor %}
+      {% for metier in metiers %}<li class="chip" aria-hidden="true">{{ metier }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}
