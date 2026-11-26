@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Nos applications
     "core",
+    "locations",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -88,8 +90,16 @@ DATABASES = {
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Modèle utilisateur personnalisé : activé à l'étape 1c, AVANT le premier migrate.
-# AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = "accounts.User"
 
+# Argon2 en premier : l'algorithme recommandé, conçu pour résister au cassage par carte graphique.
+# Les autres restent listés pour pouvoir lire d'anciens mots de passe.
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.ScryptPasswordHasher",
+]
 
 # --- Mots de passe ----------------------------------------------------------
 
