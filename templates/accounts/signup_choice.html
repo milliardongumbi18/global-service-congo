@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Créer un compte · Global Service Congo{% endblock %}
+
+{% block content %}
+<section class="wrap section">
+  <div class="mx-auto max-w-[640px] text-center rise">
+    <h1 class="text-[clamp(2rem,4.5vw,3rem)] font-extrabold">Quel type de compte voulez-vous créer ?</h1>
+    <p class="mt-4 text-lg text-muted">Le type de compte ne pourra plus être modifié ensuite. Choisissez celui qui vous correspond.</p>
+  </div>
+
+  <div class="type-grid mt-12">
+    <a href="{% url 'accounts:signup' 'client' %}" class="glass spot type-card rise rise-2" style="--c: var(--gsc-y)">
+      <span class="type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+      <h2 class="text-xl font-bold">Particulier</h2>
+      <p class="text-muted">J'ai un travail à faire faire : réparation, site web, cours, déménagement…</p>
+      <span class="btn btn-ghost">Je cherche un prestataire</span>
+    </a>
+
+    <a href="{% url 'accounts:signup' 'freelance' %}" class="glass spot type-card is-featured rise rise-3" style="--c: var(--gsc-b)">
+      <span class="type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
+      <h2 class="text-xl font-bold">Freelance</h2>
+      <p class="text-muted">Je propose mes compétences et je veux être payé à coup sûr.</p>
+      <span class="btn btn-primary btn-glow">Je propose mes services</span>
+    </a>
+
+    <a href="{% url 'accounts:signup' 'entreprise' %}" class="glass spot type-card rise rise-4" style="--c: var(--gsc-g)">
+      <span class="type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 9h1M14 9h1M9 13h1M14 13h1M10 21v-4h4v4"/></svg></span>
+      <h2 class="text-xl font-bold">Entreprise</h2>
+      <p class="text-muted">Je recrute des talents, ou je propose les services de mon entreprise.</p>
+      <span class="btn btn-ghost">Je représente une entreprise</span>
+    </a>
+  </div>
+
+  <p class="mt-10 text-center text-muted">Déjà inscrit ? <a href="{% url 'accounts:login' %}" class="font-semibold text-primary hover:underline">Se connecter</a></p>
+</section>
+{% endblock %}

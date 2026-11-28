@@ -238,7 +238,30 @@
   .footer-link { color: var(--gsc-muted); transition: color 0.2s; }
   .footer-link:hover { color: var(--gsc-ink); }
 }
+/* -------------------------------------------------- Formulaires et messages */
+@layer components {
+  .auth-shell { display: grid; justify-items: center; padding-block: clamp(32px, 6vw, 72px); }
+  .form-card { width: 100%; max-width: 600px; padding: clamp(22px, 4vw, 40px); }
+  .form-grid { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 640px) { .form-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
+  .label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 600; }
+  .input { width: 100%; min-height: 48px; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--gsc-line); background: var(--gsc-surface); color: var(--gsc-ink); font-size: 16px; transition: border-color 0.2s, box-shadow 0.2s; }
+  .input::placeholder { color: var(--gsc-muted); }
+  .input:focus { outline: none; border-color: var(--gsc-primary); box-shadow: 0 0 0 4px color-mix(in srgb, var(--gsc-primary) 22%, transparent); }
+  .input[aria-invalid="true"] { border-color: var(--gsc-r); }
+  select.input { appearance: none; padding-right: 42px; background-repeat: no-repeat; background-position: right 14px center; background-size: 18px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a97b5' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); }
+  .help { margin-top: 6px; font-size: 13px; color: var(--gsc-muted); }
+  .field-error { margin-top: 6px; font-size: 13px; font-weight: 500; color: var(--gsc-r); }
+  .form-alert { padding: 12px 14px; border-radius: 12px; font-size: 14px; color: var(--gsc-r); background: color-mix(in srgb, var(--gsc-r) 12%, transparent); border: 1px solid color-mix(in srgb, var(--gsc-r) 30%, transparent); }
+
+  .check { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--gsc-muted); cursor: pointer; }
+  .check input { flex: none; width: 20px; height: 20px; margin-top: 1px; accent-color: var(--gsc-primary); }
+
+  .flash { padding: 12px 16px; border-radius: 14px; font-size: 15px; font-weight: 500; border: 1px solid var(--gsc-line); background: var(--gsc-glass); }
+  .flash-success { color: var(--gsc-g); border-color: color-mix(in srgb, var(--gsc-g) 35%, transparent); background: color-mix(in srgb, var(--gsc-g) 12%, var(--gsc-glass)); }
+  .flash-error { color: var(--gsc-r); border-color: color-mix(in srgb, var(--gsc-r) 35%, transparent); background: color-mix(in srgb, var(--gsc-r) 12%, var(--gsc-glass)); }
+}
 /* -------------------------------------------------------------- Animations */
 @keyframes gsc-drift { 0% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(6vw, 4vh, 0) scale(1.08); } 100% { transform: translate3d(-4vw, 8vh, 0) scale(0.95); } }
 @keyframes gsc-spin { to { transform: rotate(360deg); } }

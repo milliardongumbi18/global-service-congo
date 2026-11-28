@@ -1,0 +1,7 @@
+{% if messages %}
+  <div class="wrap mt-4 grid gap-2" role="status" aria-live="polite">
+    {% for message in messages %}
+      <div class="flash flash-{{ message.tags|default:'info' }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}

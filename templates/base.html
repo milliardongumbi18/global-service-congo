@@ -7,7 +7,6 @@
   <meta name="description" content="{% block description %}Trouvez des freelances et des entreprises de confiance en RDC. Paiement bloqué jusqu'à la validation du travail.{% endblock %}">
   <meta name="theme-color" content="#050a18">
 
-  {# Thème appliqué avant l'affichage, pour éviter un flash #}
   <script src="{% static 'js/theme-init.js' %}"></script>
 
   <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
@@ -15,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=Plus+Jakarta+Sans:wght@700..800&display=swap">
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <script src="{% static 'js/vendor/htmx.min.js' %}" defer></script>
   <script src="{% static 'js/app.js' %}" defer></script>
 </head>
 <body class="min-h-dvh bg-bg font-sans text-ink antialiased">
@@ -25,6 +25,7 @@
   <div class="grain" aria-hidden="true"></div>
 
   {% include "partials/_header.html" %}
+  {% include "partials/_messages.html" %}
 
   <main id="contenu">
     {% block content %}{% endblock %}

@@ -10,16 +10,16 @@
     <div>
       <h3 class="footer-title">Plateforme</h3>
       <ul class="grid gap-2.5 text-[15px]">
-        <li><a class="footer-link" href="#missions">Missions</a></li>
-        <li><a class="footer-link" href="#prestataires">Prestataires</a></li>
-        <li><a class="footer-link" href="#comment">Comment ça marche</a></li>
+        <li><a class="footer-link" href="{% url 'core:home' %}#missions">Missions</a></li>
+        <li><a class="footer-link" href="{% url 'core:home' %}#prestataires">Prestataires</a></li>
+        <li><a class="footer-link" href="{% url 'core:home' %}#comment">Comment ça marche</a></li>
       </ul>
     </div>
     <div>
       <h3 class="footer-title">Compte</h3>
       <ul class="grid gap-2.5 text-[15px]">
-        <li><a class="footer-link" href="#">Créer un compte</a></li>
-        <li><a class="footer-link" href="#">Se connecter</a></li>
+        <li><a class="footer-link" href="{% url 'accounts:signup_choice' %}">Créer un compte</a></li>
+        <li><a class="footer-link" href="{% url 'accounts:login' %}">Se connecter</a></li>
       </ul>
     </div>
     <div>
