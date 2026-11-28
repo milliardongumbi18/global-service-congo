@@ -104,3 +104,29 @@ class LoginLogoutTests(TestCase):
         response = self.client.post(reverse("accounts:logout"))
         self.assertRedirects(response, reverse("core:home"))
         self.assertNotIn("_auth_user_id", self.client.session)
+
+
+class AuthLayoutTests(TestCase):
+    def test_statistiques_masquees_sous_le_seuil(self):
+        response = self.client.get(reverse("accounts:signup", args=["freelance"]))
+        self.assertFalse(response.context["stats"]["afficher"])
+        self.assertNotContains(response, "data-stats")
+
+    def test_statistiques_affichees_a_partir_de_20_freelances(self):
+        # bulk_create : rapide, pas de hachage de mot de passe (inutile pour compter)
+        User.objects.bulk_create([
+            User(email=f"f{i}@x.cd", account_type=User.AccountType.FREELANCE, password="!")
+            for i in range(20)
+        ])
+        response = self.client.get(reverse("accounts:login"))
+        self.assertTrue(response.context["stats"]["afficher"])
+        self.assertEqual(response.context["stats"]["freelances"], 20)
+        self.assertContains(response, "data-stats")
+
+    def test_inscription_en_trois_etapes(self):
+        response = self.client.get(reverse("accounts:signup", args=["client"]))
+        self.assertContains(response, 'data-step-panel="3"')
+
+    def test_bouton_afficher_mot_de_passe_sur_la_connexion(self):
+        response = self.client.get(reverse("accounts:login"))
+        self.assertContains(response, "data-password-toggle")

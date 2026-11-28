@@ -1,24 +1,71 @@
 {% extends "base.html" %}
 
 {% block title %}Connexion · Global Service Congo{% endblock %}
+{% block site_header %}{% endblock %}
+{% block site_footer %}{% endblock %}
 
 {% block content %}
-<section class="wrap auth-shell">
-  <div class="glass form-card max-w-[460px] rise">
-    <h1 class="text-[clamp(1.8rem,4vw,2.4rem)] font-extrabold">Bon retour parmi nous</h1>
-    <p class="mt-2 text-muted">Connectez-vous pour suivre vos missions.</p>
+<div class="auth-page">
+  {% include "partials/_auth_topbar.html" %}
 
-    <form method="post" class="mt-8 grid gap-5">
-      {% csrf_token %}
-      {% if form.non_field_errors %}
-        <div class="form-alert" role="alert">{% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}</div>
-      {% endif %}
-      {% include "partials/_field.html" with field=form.username %}
-      {% include "partials/_field.html" with field=form.password %}
-      <input type="hidden" name="next" value="{{ next }}">
-      <button type="submit" class="btn btn-primary btn-glow w-full">Se connecter</button>
-      <p class="text-center text-sm text-muted">Pas encore de compte ? <a href="{% url 'accounts:signup_choice' %}" class="font-semibold text-primary hover:underline">Créer un compte</a></p>
-    </form>
-  </div>
-</section>
+  {# ------------------------------------------------ Colonne formulaire #}
+  <section class="auth-form-col">
+    <div class="auth-form-inner rise">
+      <p class="pill"><span class="pill-dot"></span>Espace sécurisé</p>
+      <h1 class="mt-5 text-[clamp(2rem,4.2vw,2.8rem)] font-extrabold">Bienvenue sur <span class="text-gradient">GSC</span></h1>
+      <p class="mt-3 text-muted">Connectez-vous pour suivre vos missions, vos candidatures et vos paiements.</p>
+
+      <form method="post" class="mt-8 grid gap-5">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="form-alert" role="alert">{% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}</div>
+        {% endif %}
+        {% include "partials/_field.html" with field=form.username icon="mail" %}
+        {% include "partials/_field.html" with field=form.password icon="lock" toggle=True %}
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit" class="btn btn-primary btn-glow w-full" data-loading-text="Connexion…">Se connecter</button>
+      </form>
+
+      <p class="mt-6 text-center text-sm text-muted">Pas encore de compte ? <a href="{% url 'accounts:signup_choice' %}" class="font-semibold text-primary hover:underline">Créer un compte</a></p>
+
+      <ul class="auth-trust">
+        <li>{% include "partials/_icon.html" with name="lock" %}Connexion chiffrée (HTTPS)</li>
+        <li>{% include "partials/_icon.html" with name="shield" %}Paiement protégé par séquestre</li>
+      </ul>
+    </div>
+  </section>
+
+  {# ------------------------------------------------ Colonne visuelle (ordinateur) #}
+  <aside class="auth-visual-col">
+    <div class="auth-visual-inner">
+      <div class="glass showcase rise rise-2">
+        <p class="showcase-live"><span class="pill-dot"></span>Comment GSC vous protège</p>
+        <h2 class="mt-4 text-[clamp(1.6rem,2.4vw,2.2rem)] font-extrabold">Le travail bien fait, payé en toute confiance.</h2>
+        <p class="mt-3 text-muted">Chaque mission est financée avant de commencer. Le prestataire est payé dès que le client valide le travail.</p>
+
+        <div class="glass spot showcase-mission">
+          <div class="flex items-center justify-between gap-2">
+            <span class="tag tag-green">En cours</span>
+            <span class="font-display text-[22px] font-extrabold whitespace-nowrap">350 USD</span>
+          </div>
+          <p class="mt-3 font-display text-base font-bold">Site vitrine pour un restaurant</p>
+          <p class="text-[13px] text-muted">Gombe · livraison sous 3 semaines</p>
+          <div class="steps my-3"><i class="on"></i><i class="now"></i><i></i><i></i></div>
+          <p class="flex items-center gap-2 text-[13px] font-semibold text-brand-green">
+            <span class="size-4">{% include "partials/_icon.html" with name="lock" %}</span>
+            Fonds bloqués jusqu'à validation
+          </p>
+        </div>
+        <p class="mt-3 text-[13px] text-muted">Exemple de mission, à titre d'illustration.</p>
+
+        {% if stats.afficher %}
+          <div class="auth-metrics" data-stats>
+            <div><strong>{{ stats.freelances }}</strong><span>freelances inscrits</span></div>
+            <div><strong>{{ stats.entreprises }}</strong><span>entreprises inscrites</span></div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </aside>
+</div>
 {% endblock %}

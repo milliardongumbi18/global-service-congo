@@ -20,6 +20,17 @@ TEXTES = {
     User.AccountType.ENTREPRISE: ("Créer un compte entreprise", "Recrutez des talents ou proposez les services de votre entreprise."),
 }
 
+# En dessous de ce nombre de freelances, on n'affiche pas de chiffres (ils feraient fuir au lancement)
+SEUIL_STATISTIQUES = 20
+
+
+def statistiques_plateforme():
+    """Chiffres RÉELS de la plateforme : comptes actifs et non suspendus uniquement."""
+    actifs = User.objects.filter(is_active=True, is_suspended=False)
+    freelances = actifs.filter(account_type=User.AccountType.FREELANCE).count()
+    entreprises = actifs.filter(account_type=User.AccountType.ENTREPRISE).count()
+    return {"freelances": freelances, "entreprises": entreprises, "afficher": freelances >= SEUIL_STATISTIQUES}
+
 
 class AnonymousRequiredMixin:
     """Un utilisateur déjà connecté n'a rien à faire sur l'inscription."""
@@ -60,6 +71,7 @@ class SignupView(AnonymousRequiredMixin, FormView):
             subheading=subheading,
             is_company=self.account_type == User.AccountType.ENTREPRISE,
             is_freelance=self.account_type == User.AccountType.FREELANCE,
+            stats=statistiques_plateforme(),
         )
         return context
 
@@ -74,6 +86,11 @@ class GSCLoginView(LoginView):
     template_name = "accounts/login.html"
     authentication_form = EmailAuthenticationForm
     redirect_authenticated_user = True
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["stats"] = statistiques_plateforme()
+        return context
 
 
 class GSCLogoutView(LogoutView):

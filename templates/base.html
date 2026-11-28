@@ -24,13 +24,13 @@
   <div class="bg-scene" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <div class="grain" aria-hidden="true"></div>
 
-  {% include "partials/_header.html" %}
+  {% block site_header %}{% include "partials/_header.html" %}{% endblock %}
   {% include "partials/_messages.html" %}
 
   <main id="contenu">
     {% block content %}{% endblock %}
   </main>
 
-  {% include "partials/_footer.html" %}
+  {% block site_footer %}{% include "partials/_footer.html" %}{% endblock %}
 </body>
 </html>
