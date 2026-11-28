@@ -92,6 +92,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Modèle utilisateur personnalisé : activé à l'étape 1c, AVANT le premier migrate.
 AUTH_USER_MODEL = "accounts.User"
 
+# Pages de connexion et redirections
+LOGIN_URL = "accounts:login"
+LOGIN_REDIRECT_URL = "core:home"
+LOGOUT_REDIRECT_URL = "core:home"
+
 # Argon2 en premier : l'algorithme recommandé, conçu pour résister au cassage par carte graphique.
 # Les autres restent listés pour pouvoir lire d'anciens mots de passe.
 PASSWORD_HASHERS = [

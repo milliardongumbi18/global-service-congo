@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{{ heading }} · Global Service Congo{% endblock %}
+
+{% block content %}
+<section class="wrap auth-shell">
+  <div class="glass form-card rise">
+    <a href="{% url 'accounts:signup_choice' %}" class="text-sm text-muted hover:text-ink">← Changer de type de compte</a>
+    <h1 class="mt-4 text-[clamp(1.8rem,4vw,2.4rem)] font-extrabold">{{ heading }}</h1>
+    <p class="mt-2 text-muted">{{ subheading }}</p>
+
+    <form method="post" class="mt-8 grid gap-5">
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+        <div class="form-alert" role="alert">{% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}</div>
+      {% endif %}
+
+      {% if is_company %}{% include "partials/_field.html" with field=form.company_name %}{% endif %}
+
+      <div class="form-grid form-grid-2">
+        {% include "partials/_field.html" with field=form.first_name %}
+        {% include "partials/_field.html" with field=form.last_name %}
+      </div>
+
+      {% if is_freelance %}{% include "partials/_field.html" with field=form.title %}{% endif %}
+
+      <div class="form-grid form-grid-2">
+        {% include "partials/_field.html" with field=form.email %}
+        {% include "partials/_field.html" with field=form.phone %}
+      </div>
+
+      <div class="form-grid form-grid-2">
+        {% include "partials/_field.html" with field=form.country %}
+        {% include "partials/_field.html" with field=form.city %}
+      </div>
+
+      {% include "partials/_field.html" with field=form.district %}
+
+      <div class="form-grid form-grid-2">
+        {% include "partials/_field.html" with field=form.password1 %}
+        {% include "partials/_field.html" with field=form.password2 %}
+      </div>
+
+      <div>
+        <label class="check" for="{{ form.accept_terms.id_for_label }}">
+          {{ form.accept_terms }}
+          <span>J'accepte les <a href="#" class="font-semibold text-primary hover:underline">conditions d'utilisation</a> et la <a href="#" class="font-semibold text-primary hover:underline">politique de confidentialité</a>.</span>
+        </label>
+        {% for error in form.accept_terms.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-glow w-full">Créer mon compte</button>
+      <p class="text-center text-sm text-muted">Déjà inscrit ? <a href="{% url 'accounts:login' %}" class="font-semibold text-primary hover:underline">Se connecter</a></p>
+    </form>
+  </div>
+</section>
+{% endblock %}

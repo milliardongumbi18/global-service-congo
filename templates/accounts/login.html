@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Connexion · Global Service Congo{% endblock %}
+
+{% block content %}
+<section class="wrap auth-shell">
+  <div class="glass form-card max-w-[460px] rise">
+    <h1 class="text-[clamp(1.8rem,4vw,2.4rem)] font-extrabold">Bon retour parmi nous</h1>
+    <p class="mt-2 text-muted">Connectez-vous pour suivre vos missions.</p>
+
+    <form method="post" class="mt-8 grid gap-5">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="form-alert" role="alert">{% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}</div>
+      {% endif %}
+      {% include "partials/_field.html" with field=form.username %}
+      {% include "partials/_field.html" with field=form.password %}
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit" class="btn btn-primary btn-glow w-full">Se connecter</button>
+      <p class="text-center text-sm text-muted">Pas encore de compte ? <a href="{% url 'accounts:signup_choice' %}" class="font-semibold text-primary hover:underline">Créer un compte</a></p>
+    </form>
+  </div>
+</section>
+{% endblock %}

@@ -172,7 +172,7 @@
           <li>Comparez les propositions reçues</li>
           <li>Payez seulement après validation</li>
         </ul>
-        <a href="#" class="btn btn-ghost">Créer un compte client</a>
+        <a href="{% url 'accounts:signup' 'client' %}" class="btn btn-ghost">Créer un compte client</a>
       </article>
 
       <article class="glass spot type-card is-featured reveal" style="--c: var(--gsc-b)">
@@ -184,7 +184,7 @@
           <li>Candidatures en quelques minutes</li>
           <li>Commission de {{ commission_pct }} % affichée à l'avance</li>
         </ul>
-        <a href="#" class="btn btn-primary btn-glow">Créer un compte freelance</a>
+        <a href="{% url 'accounts:signup' 'freelance' %}" class="btn btn-primary btn-glow">Créer un compte freelance</a>
       </article>
 
       <article class="glass spot type-card reveal" style="--c: var(--gsc-g)">
@@ -196,7 +196,7 @@
           <li>Publiez des missions pour trouver du monde</li>
           <li>Candidatez aussi aux missions des autres</li>
         </ul>
-        <a href="#" class="btn btn-ghost">Créer un compte entreprise</a>
+        <a href="{% url 'accounts:signup' 'entreprise' %}" class="btn btn-ghost">Créer un compte entreprise</a>
       </article>
     </div>
   </div>
@@ -248,7 +248,7 @@
       <h2 class="section-title">Prêt à lancer votre première mission ?</h2>
       <p class="mx-auto mt-4 mb-8 max-w-[32em] text-muted">L'inscription prend une minute. Choisissez votre type de compte et commencez.</p>
       <div class="flex flex-wrap justify-center gap-3">
-        <a href="#" class="btn btn-primary btn-glow">Créer un compte</a>
+        <a href="{% url 'accounts:signup_choice' %}" class="btn btn-primary btn-glow">Créer un compte</a>
         <a href="#missions" class="btn btn-ghost">Parcourir les missions</a>
       </div>
     </div>

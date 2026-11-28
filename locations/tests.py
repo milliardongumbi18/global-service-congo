@@ -2,7 +2,7 @@ from django.db import IntegrityError
 from django.test import TestCase
 
 from .models import City, Country
-
+from django.urls import reverse
 
 class LocationsTests(TestCase):
     def test_rdc_et_kinshasa_crees_par_la_migration(self):
@@ -20,3 +20,15 @@ class LocationsTests(TestCase):
         rdc = Country.objects.get(code="CD")
         with self.assertRaises(IntegrityError):
             City.objects.create(country=rdc, name="Kinshasa")
+
+
+class CityOptionsViewTests(TestCase):
+    def test_villes_du_pays_renvoyees(self):
+        rdc = Country.objects.get(code="CD")
+        response = self.client.get(reverse("locations:city_options"), {"country": rdc.pk})
+        self.assertContains(response, "Kinshasa")
+
+    def test_parametre_non_numerique_ignore(self):
+        response = self.client.get(reverse("locations:city_options"), {"country": "1 OR 1=1"})
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Kinshasa")
